@@ -1,0 +1,71 @@
+databaseChangeLog:
+- changeSet:
+      id: First-1
+      author: Andrey
+      changes:
+        - createTable:
+           tableName: doctors
+           remarks: tables for doctors
+           columns:
+            - column :
+                name: id
+                type: integer
+                autoIncrement: true
+                constraints:
+                    primaryKey: true
+                    primaryKeyName: article_pk
+                    nullable: false
+            - column:
+                name: first_name
+                type: varchar(50)
+                constraints:
+                  nullable: false
+            - column:
+                name: last_name
+                type: varchar(50)
+                constraints:
+                  nullable: false
+            - column:
+                name: position
+                type: varchar(100)
+                constraints:
+                  unique: true
+                  nullable: false
+        - createTable:
+            tableName: doc_info
+            remarks: info about doctors
+            columns:
+            - column:
+                name: id
+                type: integer
+                autoIncrement: true
+                constraints:
+                  primaryKey: true
+                  nullable: false
+            - column:
+                name: info
+                type: varchar(256)
+                constraints:
+                  nullable: false
+            - column:
+                name: salary
+                type: varchar(10)
+                defaultValue: LOW
+                constraints:
+                  nullable: false
+- changeSet:
+    id: Second-2
+    author: Andrey
+    changes:
+      - renameColumn:
+          oldColumnName: id
+          newColumnName: id_changed
+          tableName: doctors
+- changeSet:
+    id: Third-3
+    author: Andrey
+    changes:
+      - renameColumn:
+          oldColumnName: id_changed
+          newColumnName: id
+          tableName: doctors

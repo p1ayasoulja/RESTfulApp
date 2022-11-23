@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/doctors
+    username: yandy
+    password: yandy
+  liquibase:
+    change-log: classpath:liquibase/changelog.yml
+  jpa:
+    hibernate:
+      ddl-auto: update

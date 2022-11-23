@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "DocInfo")
+@Table(name = "doc_info")
 public class AboutDoctor {
     private @Id
     @GeneratedValue(strategy = GenerationType.TABLE) Long id;
