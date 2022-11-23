@@ -1,7 +1,6 @@
 package com.example.restful.domain;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.util.Objects;
 
 @Entity
@@ -11,15 +10,15 @@ public class Doctors {
     @GeneratedValue(strategy = GenerationType.TABLE) Long id;
     private String firstName;
     private String lastName;
-    private String position;
+    private String resume;
 
     public Doctors() {
     }
 
-    public Doctors(String firstName, String lastName, String position) {
+    public Doctors(String firstName, String lastName, String resume) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.position = position;
+        this.resume = resume;
     }
 
     public Long getId() {
@@ -40,8 +39,8 @@ public class Doctors {
         this.lastName = parts[1];
     }
 
-    public String getPosition() {
-        return position;
+    public String getResume() {
+        return resume;
     }
 
     public String getFirstName() {
@@ -60,8 +59,8 @@ public class Doctors {
         this.lastName = lastName;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setResume(String position) {
+        this.resume = position;
     }
 
     @Override
@@ -72,12 +71,12 @@ public class Doctors {
         return Objects.equals(id, doctors.id)
                 && Objects.equals(firstName, doctors.firstName)
                 && Objects.equals(lastName, doctors.lastName)
-                && Objects.equals(position, doctors.position);
+                && Objects.equals(resume, doctors.resume);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.id, this.firstName, this.lastName, this.position);
+        return Objects.hash(this.id, this.firstName, this.lastName, this.resume);
     }
 
     @Override
@@ -85,6 +84,6 @@ public class Doctors {
         return "Doctor" + "id=" + this.id + "," +
                 "firstName='" + this.firstName + '\'' + ", " +
                 "lastName='" + this.lastName + '\'' + ", " +
-                "position='" + this.position + '\'' + '}';
+                "resume='" + this.resume + '\'' + '}';
     }
 }

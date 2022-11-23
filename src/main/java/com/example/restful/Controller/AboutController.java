@@ -1,7 +1,7 @@
 package com.example.restful.Controller;
 
 import com.example.restful.Assembler.AboutModelAssembler;
-import com.example.restful.Enum.Salary;
+import com.example.restful.Enum.Status;
 import com.example.restful.Exceptions.DoctorNotFoundException;
 import com.example.restful.Repositorys.AboutRepo;
 import com.example.restful.domain.AboutDoctor;
@@ -51,29 +51,28 @@ public class AboutController {
         return assembler.toModel(aboutDoctor);
     }
 
-    @PostMapping("/{id}")
+    @PostMapping()
     ResponseEntity<EntityModel<AboutDoctor>> newAboutDoctor(@RequestBody AboutDoctor aboutDoctor) {
 
-        aboutDoctor.setSalary(Salary.LOW);
+        aboutDoctor.setStatus(Status.NOT_ACCEPTED);
         AboutDoctor newAboutDoctor = aboutRepo.save(aboutDoctor);
 
         return ResponseEntity //
                 .created(linkTo(methodOn(AboutController.class).oneInfo(newAboutDoctor.getId())).toUri()) //
                 .body(assembler.toModel(newAboutDoctor));
     }
-
-    @DeleteMapping("/{id}/up")
+    @PutMapping("/{id}/up")
    public ResponseEntity<?> upgrade(@PathVariable Long id) {
 
         AboutDoctor aboutDoctor = aboutRepo.findById(id) //
                 .orElseThrow(() -> new DoctorNotFoundException(id));
 
-        if (aboutDoctor.getSalary() == Salary.LOW) {
-            aboutDoctor.setSalary(Salary.MIDDLE);
+        if (aboutDoctor.getStatus() == Status.NOT_ACCEPTED) {
+            aboutDoctor.setStatus(Status.ACCEPTED);
             return ResponseEntity.ok(assembler.toModel(aboutRepo.save(aboutDoctor)));
         }
-        if (aboutDoctor.getSalary() == Salary.MIDDLE) {
-            aboutDoctor.setSalary(Salary.HIGH);
+        if (aboutDoctor.getStatus() == Status.ACCEPTED) {
+            aboutDoctor.setStatus(Status.NOT_ACCEPTED);
             return ResponseEntity.ok(assembler.toModel(aboutRepo.save(aboutDoctor)));
         }
 
@@ -82,7 +81,7 @@ public class AboutController {
                 .header(HttpHeaders.CONTENT_TYPE, MediaTypes.HTTP_PROBLEM_DETAILS_JSON_VALUE) //
                 .body(Problem.create() //
                         .withTitle("Method not allowed") //
-                        .withDetail("We cant make ur salary higher! Its already on " + aboutDoctor.getSalary() + "level"));
+                        .withDetail("Your resume status : " + aboutDoctor.getStatus()));
     }
     @DeleteMapping("/{id}")
     ResponseEntity<?> deleteOne(@PathVariable Long id) {

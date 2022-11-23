@@ -1,6 +1,6 @@
 package com.example.restful.domain;
 
-import com.example.restful.Enum.Salary;
+import com.example.restful.Enum.Status;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -9,16 +9,16 @@ import java.util.Objects;
 @Table(name = "doc_info")
 public class AboutDoctor {
     private @Id
-    @GeneratedValue(strategy = GenerationType.TABLE) Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY) Long id;
     private String info;
-    private Salary salary;
+    private Status status;
 
     public AboutDoctor() {
     }
 
-    public AboutDoctor(String info, Salary salary) {
+    public AboutDoctor(String info, Status status) {
         this.info = info;
-        this.salary = salary;
+        this.status = status;
     }
 
     public Long getId() {
@@ -37,12 +37,12 @@ public class AboutDoctor {
         this.info = info;
     }
 
-    public Salary getSalary() {
-        return salary;
+    public Status getStatus() {
+        return status;
     }
 
-    public void setSalary(Salary salary) {
-        this.salary = salary;
+    public void setStatus(Status status) {
+        this.status = status;
     }
 
     @Override
@@ -53,12 +53,12 @@ public class AboutDoctor {
             return false;
         AboutDoctor aboutDoctor = (AboutDoctor) o;
         return Objects.equals(this.id, aboutDoctor.id) && Objects.equals(this.info, aboutDoctor.info)
-                && this.salary == aboutDoctor.salary;
+                && this.status == aboutDoctor.status;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getInfo(), getSalary());
+        return Objects.hash(getId(), getInfo(), getStatus());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class AboutDoctor {
         return "AboutDoctor{" +
                 "id=" + id +
                 ", info='" + info + '\'' +
-                ", salary=" + salary +
+                ", salary=" + status +
                 '}';
     }
 }

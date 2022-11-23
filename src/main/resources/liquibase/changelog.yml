@@ -26,7 +26,7 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: position
+                name: resume
                 type: varchar(100)
                 constraints:
                   unique: true
@@ -48,9 +48,9 @@ databaseChangeLog:
                 constraints:
                   nullable: false
             - column:
-                name: salary
-                type: varchar(10)
-                defaultValue: LOW
+                name: status
+                type: varchar(50)
+                defaultValue: NOT_ACCEPTED
                 constraints:
                   nullable: false
 - changeSet:

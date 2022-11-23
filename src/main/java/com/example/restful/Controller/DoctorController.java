@@ -30,11 +30,11 @@ public class DoctorController {
     @GetMapping()
     public CollectionModel<EntityModel<Doctors>> all() {
 
-        List<EntityModel<Doctors>> employees = doctorRepo.findAll().stream()
+        List<EntityModel<Doctors>> doctors = doctorRepo.findAll().stream()
                 .map(assembler::toModel)
                 .collect(Collectors.toList());
 
-        return CollectionModel.of(employees, linkTo(methodOn(DoctorController.class).all()).withSelfRel());
+        return CollectionModel.of(doctors, linkTo(methodOn(DoctorController.class).all()).withSelfRel());
     }
 
     @PostMapping()
@@ -62,7 +62,7 @@ public class DoctorController {
         Doctors updatedEmployee = doctorRepo.findById(id) //
                 .map(employee -> {
                     employee.setName(newDoctor.getName());
-                    employee.setPosition(newDoctor.getPosition());
+                    employee.setResume(newDoctor.getResume());
                     return doctorRepo.save(employee);
                 }) //
                 .orElseGet(() -> {
